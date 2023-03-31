@@ -28,11 +28,11 @@
         if index < start_index {
           continue
         }
-        if line_num < start_line_num and value != [+] and value != [] {
+        if line_num < start_line_num and value != [+] and value != [x] {
           line_num += 0.5
           continue
         }
-        else if line_num < start_line_num and (value == [+] or value == []) {
+        else if line_num < start_line_num and (value == [+] or value == [x]) {
           line_num -= 0.5
           continue
         }
@@ -45,7 +45,7 @@
           start_line_num = line_num + value
         } else if value_type == 1 {
           value_type = 0
-          if value == [] {
+          if value == [x] {
             x_0_line = pre_line
           } else {
             line_num += 1
@@ -78,7 +78,7 @@
 #let proof( ..lines) = {
   let row_num = 0
   for value in lines {
-    if value == [+] or value == [] {
+    if value == [+] or value == [x] {
       row_num -= 0.5
     } else {
       row_num += 0.5
