@@ -1,5 +1,7 @@
-#let proof_line(formula, theory) = {
-  columns(2)[
+#let proof_line(formula, theory, x0) = {
+  columns(3)[
+    #x0
+    #colbreak()
     #formula
     #colbreak()
     #{ if theory == [p] {
@@ -16,6 +18,7 @@
   let index = 0
   let line_num = start_line_num
   let pre_line = none
+  let x_0_line = none
   let assuption_flag = false
   block(width: 100%)[
     #{
@@ -25,11 +28,11 @@
         if index < start_index {
           continue
         }
-        if line_num < start_line_num and value != [+] {
+        if line_num < start_line_num and value != [+] and value != [] {
           line_num += 0.5
           continue
         }
-        else if line_num < start_line_num and value == [+] {
+        else if line_num < start_line_num and (value == [+] or value == []) {
           line_num -= 0.5
           continue
         }
@@ -42,8 +45,13 @@
           start_line_num = line_num + value
         } else if value_type == 1 {
           value_type = 0
-          line_num += 1
-          proof_line(pre_line, value)
+          if value == [] {
+            x_0_line = pre_line
+          } else {
+            line_num += 1
+            proof_line(pre_line, value, x_0_line)
+            x_0_line = none
+          }
         } else if value != [+]{
           value_type = 1
           pre_line = value;
@@ -67,6 +75,14 @@
   ]
 }
 
-#let proof(row_num, ..lines) = {
-  grid(columns: (0.1fr, 0.9fr), gen_line_code(row_num), inner_proof(0, 0, 9999, lines))
+#let proof( ..lines) = {
+  let row_num = 0
+  for value in lines {
+    if value == [+] or value == [] {
+      row_num -= 0.5
+    } else {
+      row_num += 0.5
+    }
+  }
+  grid(columns: (0.1fr, 0.9fr), gen_line_code(int(row_num)), inner_proof(0, 0, 9999, lines))
 }
