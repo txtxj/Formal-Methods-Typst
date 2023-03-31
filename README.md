@@ -22,16 +22,16 @@
 
 ```
 #proof(
-  $forall x not P(x)$, [p],
+  $exists x(S->Q(x))$, [p],
   [+], 5,
-  $exists x P(x)$, [a],
+  $S$, [a],
   [+], 3,
   $x_0$, [x],                            // 建立一个任意变量 x_0，该变量的声明将和下一行一起显示
-  $P(x_0)$,[a],
-  $not P(x_0)$, [$forall x space e$ 1],
-  $bot$, [$not e$ 3,4],
-  $bot$, [$exists e$ 2,3-5],
-  $not exists x P(x)$, [$not i$ 2-6]
+  $S->Q(x_0)$, [a],
+  $Q(x_0)$, [$-> e$ 3,2],
+  $exists x Q(x)$, [$exists x space i$ 4],
+  $exists x Q(x)$, [$exists x space e$ 1,3-5],
+  $S->exists x Q(x)$, [$-> i$ 2,6]
 )
 ```
 
