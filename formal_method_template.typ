@@ -52,13 +52,16 @@
   ]
 }
 
-
 #let gen_line_code(row_num) = {
-  grid(row-gutter: 13.4pt, ..{ // 手动调整这个 row-gutter ，使得行号与公式对齐
-    for value in range(row_num) {
-      ([$#(value + 1).$], )
+  block(width: 100%)[
+    #{
+      for i in range(row_num) {
+        columns(1)[
+          #{$#(i+1).$}
+        ]
+      }
     }
-  })
+  ]
 }
 
 #let proof(row_num, ..lines) = {
