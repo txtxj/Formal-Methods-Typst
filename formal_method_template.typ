@@ -38,7 +38,6 @@
     #{
       let value_type = 0
       for (index, value) in lines.pos().enumerate() {
-        index += 1
         if index < start_index {
           continue
         }
@@ -93,7 +92,7 @@
   let row_num = 0
   let predicate_flag = false
   
-  for (index, value) in lines.pos().enumerate() {
+  for value in lines.pos() {
     if value == [x] {
       row_num -= 0.5
       predicate_flag = true
